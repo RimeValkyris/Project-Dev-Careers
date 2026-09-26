@@ -16,8 +16,7 @@ const links = [
 	<div class="footer-inner">
 		<div class="footer-brand">
 			<a class="brand" href="/">
-				<span class="brand-mark" aria-hidden="true">DP</span>
-				<span>{SITE_TITLE}</span>
+				{SITE_TITLE}
 			</a>
 			<p>Practical seminars and a community for people building careers in software.</p>
 		</div>
@@ -53,21 +52,11 @@ const links = [
 		align-items: center;
 		color: var(--ink);
 		display: inline-flex;
-		font-size: 1.05rem;
-		font-weight: 700;
-		gap: 0.6rem;
+		font-family: var(--font-display), sans-serif;
+		font-size: 1.35rem;
+		font-weight: 800;
+		letter-spacing: -0.02em;
 		text-decoration: none;
-	}
-	.brand-mark {
-		align-items: center;
-		background: linear-gradient(135deg, var(--bold-blue), var(--deep-blue));
-		border-radius: 50%;
-		color: white;
-		display: inline-flex;
-		font-size: 0.7rem;
-		height: 2.2rem;
-		justify-content: center;
-		width: 2.2rem;
 	}
 	ul {
 		display: flex;

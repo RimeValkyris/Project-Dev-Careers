@@ -55,13 +55,12 @@ const initials = (name: string) =>
 
 <section id="speakers" class="speakers section-block" aria-labelledby="speakers-heading">
 	<div class="section-intro">
-		<p class="eyebrow">KEYNOTE SPEAKERS</p>
-		<h2 id="speakers-heading">Learn from people doing the work.</h2>
+		<h2 id="speakers-heading">Keynote speakers</h2>
 		<p>Practitioners who have made the move into tech share what worked, what didn't, and what they would do again.</p>
 	</div>
 
 	<ul class="speaker-grid">
-		{speakers.map((speaker, index) => (
+		{speakers.map((speaker) => (
 			<li class="speaker-card">
 				<div class="speaker-photo">
 					{speaker.photo ? (
@@ -69,12 +68,11 @@ const initials = (name: string) =>
 					) : (
 						<span class="speaker-initials" aria-hidden="true">{initials(speaker.name)}</span>
 					)}
-					<span class="speaker-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
 				</div>
 				<div class="speaker-body">
-					<p class="speaker-talk"><span class="sr-only">Talk: </span>“{speaker.talk}”</p>
 					<h3>{speaker.link ? <a href={speaker.link} target="_blank" rel="noopener">{speaker.name}</a> : speaker.name}</h3>
-					<p class="speaker-role">{speaker.role} · {speaker.organization}</p>
+					<p class="speaker-role">{speaker.role}, {speaker.organization}</p>
+					<p class="speaker-talk"><span class="talk-label">Talk</span> {speaker.talk}</p>
 					<p class="speaker-bio">{speaker.bio}</p>
 				</div>
 			</li>
@@ -100,11 +98,10 @@ const initials = (name: string) =>
 		overflow: hidden;
 		transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 	}
-	.speaker-card:hover {
-		border-color: #b9ccf5;
-		box-shadow: 0 18px 40px rgba(11, 35, 66, 0.12);
-		transform: translateY(-3px);
-	}
+	.speaker-card { transform: rotate(-1.2deg); }
+	.speaker-card:nth-child(even) { transform: rotate(1.2deg); }
+	.speaker-photo { margin: 0.6rem 0.6rem 0; border-radius: 10px; }
+	.speaker-body h3 { font-family: var(--font-display), sans-serif; }
 	.speaker-photo {
 		align-items: center;
 		aspect-ratio: 4 / 3;
@@ -121,10 +118,8 @@ const initials = (name: string) =>
 		height: 100%;
 		object-fit: cover;
 		object-position: center 30%;
-		transition: transform 0.4s ease;
 		width: 100%;
 	}
-	.speaker-card:hover .speaker-photo img { transform: scale(1.04); }
 	.speaker-initials {
 		align-items: center;
 		border: 1px solid rgba(255, 255, 255, 0.55);
@@ -138,25 +133,18 @@ const initials = (name: string) =>
 		letter-spacing: 0.04em;
 		width: 6rem;
 	}
-	.speaker-number {
-		backdrop-filter: blur(6px);
-		-webkit-backdrop-filter: blur(6px);
-		background: rgba(0, 18, 48, 0.55);
-		border-radius: 999px;
-		color: white;
-		font-size: 0.72rem;
-		font-weight: 700;
-		left: 1rem;
-		letter-spacing: 0.12em;
-		padding: 0.25rem 0.65rem;
-		position: absolute;
-		top: 1rem;
-	}
 	.speaker-body {
 		display: flex;
 		flex: 1;
 		flex-direction: column;
 		padding: 1.5rem;
+	}
+	.talk-label {
+		color: var(--muted);
+		display: block;
+		font-size: 0.72rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 	}
 	.speaker-talk {
 		color: var(--bold-blue);
@@ -192,11 +180,5 @@ const initials = (name: string) =>
 	}
 	@media (max-width: 560px) {
 		.speaker-grid { grid-template-columns: 1fr; }
-	}
-	@media (prefers-reduced-motion: reduce) {
-		.speaker-card { transition: none; }
-		.speaker-card:hover { transform: none; }
-		.speaker-photo img { transition: none; }
-		.speaker-card:hover .speaker-photo img { transform: none; }
 	}
 </style>

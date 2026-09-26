@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import KeynoteSpeakers from '../components/KeynoteSpeakers.astro';
+import TornEdge from '../components/TornEdge.astro';
 import { getImage } from 'astro:assets';
 import HeroSource from '../assets/94IMGBG.jpg';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
@@ -17,7 +18,7 @@ const features = [
 
 const pathways = [
 	{ tag: 'Learners', title: 'Starting out', text: 'Build foundations, find a direction, and make your first useful projects visible.', cta: 'Join a session', href: '#event' },
-	{ tag: 'Builders', title: 'Moving forward', text: 'Sharpen your craft, share your experience, and connect with the next opportunity.', cta: 'See the program', href: '#programs', featured: true },
+	{ tag: 'Builders', title: 'Moving forward', text: 'Sharpen your craft, share your experience, and connect with the next opportunity.', cta: 'See the program', href: '#programs' },
 	{ tag: 'Mentors', title: 'Giving back', text: 'Help someone one step behind you with context, encouragement, and practical feedback.', cta: 'Get involved', href: '#contact' },
 ];
 
@@ -50,38 +51,26 @@ const faqs = [
 		<main id="main-content" class="home-main">
 			<section class="portal-hero" style={`--hero-image: url(${HeroImage.src})`}>
 				<div class="hero-copy">
-					<p class="eyebrow">Presented By TWG Committee</p>
+					<p class="hero-kicker">Presented by TWG Committee</p>
 					<h1>BEYOND<br /><span>THE SOARING CAPS</span></h1>
+					<p class="hero-date">Seminar 01 &nbsp;/&nbsp; Friday, 10:00 AM &nbsp;/&nbsp; Talk + guided workshop</p>
 					<p class="intro">Dev Pipeline connects curious learners, working developers, and mentors through practical seminars, honest conversations, and shared momentum.</p>
 					<div class="hero-actions">
-						<a class="button primary" href="#programs">Explore the program</a>
-						<a class="button ghost" href="#event">See upcoming event <span aria-hidden="true">→</span></a>
+						<a class="button primary" href="#agenda">See the agenda</a>
+						<a class="button ghost" href="#speakers">Keynote speakers</a>
 					</div>
 				</div>
-				<aside class="hero-panel" aria-label="Next seminar">
-					<div class="hero-panel-top">
-						<span class="pill">Seminar 01</span>
-						<span class="panel-mark" aria-hidden="true">DP</span>
-					</div>
-					<strong>From first commit to next opportunity.</strong>
-					<dl class="panel-meta">
-						<div><dt>When</dt><dd>Friday · 10:00 AM</dd></div>
-						<div><dt>Format</dt><dd>Talk + guided workshop</dd></div>
-					</dl>
-					<a class="panel-link" href="#agenda">View the agenda <span aria-hidden="true">→</span></a>
-				</aside>
+				<TornEdge color="var(--paper)" />
 			</section>
 
 			<section id="programs" class="section-block">
 				<div class="section-intro">
-					<p class="eyebrow">Why Dev Pipeline</p>
-					<h2>A community built for professional growth.</h2>
+					<h2>Why join</h2>
 					<p>Clear guidance, useful practice, and people who understand that every career starts somewhere.</p>
 				</div>
-				<div class="card-grid">
-					{features.map(({ title, text }, i) => (
-						<article class="card">
-							<span class="card-index">{String(i + 1).padStart(2, '0')}</span>
+				<div class="feature-list">
+					{features.map(({ title, text }) => (
+						<article>
 							<h3>{title}</h3>
 							<p>{text}</p>
 						</article>
@@ -91,17 +80,16 @@ const faqs = [
 
 			<section class="pathways section-band">
 				<div class="section-intro">
-					<p class="eyebrow">Find your place</p>
-					<h2>Choose your pathway.</h2>
+					<h2>Who it's for</h2>
 					<p>Start with the kind of support you need right now. There is room to grow into the next one.</p>
 				</div>
 				<div class="card-grid">
-					{pathways.map(({ tag, title, text, cta, href, featured }) => (
-						<article class:list={['card', 'pathway-card', { featured }]}>
-							<span class="pill">{tag}</span>
+					{pathways.map(({ tag, title, text, cta, href }) => (
+						<article class="card pathway-card">
+							<p class="pathway-tag">{tag}</p>
 							<h3>{title}</h3>
 							<p>{text}</p>
-							<a class="text-link" href={href}>{cta} <span aria-hidden="true">→</span></a>
+							<a class="text-link" href={href}>{cta}</a>
 						</article>
 					))}
 				</div>
@@ -109,8 +97,7 @@ const faqs = [
 
 			<section class="process section-block">
 				<div class="section-intro">
-					<p class="eyebrow">How it works</p>
-					<h2>Your path to progress.</h2>
+					<h2>How the seminar works</h2>
 					<p>Three steps, one session, and a plan you can keep working on afterwards.</p>
 				</div>
 				<ol class="process-list">
@@ -121,25 +108,34 @@ const faqs = [
 			</section>
 
 			<section id="event" class="event-section">
-				<div>
-					<p class="eyebrow">Upcoming seminar</p>
-					<h2>Build your path into tech.</h2>
+				<TornEdge color="var(--paper)" position="top" />
+				<div class="event-copy">
+					<h2>Seminar 01: Build your path into tech</h2>
 					<p>A practical session on turning curiosity into a sustainable software development career.</p>
 					<div class="hero-actions">
-						<a class="button light" href="#agenda">View session details</a>
+						<a class="button light" href="#agenda">View the agenda</a>
 						<a class="button ghost" href="#contact">Reserve a seat</a>
 					</div>
 				</div>
-				<dl class="event-meta">
-					<div><dt>When</dt><dd>Friday · 10:00 AM</dd></div>
-					<div><dt>Format</dt><dd>Talk + guided workshop</dd></div>
-					<div><dt>For</dt><dd>Students and career changers</dd></div>
-				</dl>
+				<article class="event-card">
+					<div class="event-card-banner">
+						<span class="event-card-date"><strong>FRI</strong>10:00 AM</span>
+						<span class="event-card-title">Seminar 01</span>
+					</div>
+					<div class="event-card-body">
+						<h3>From first commit to next opportunity</h3>
+						<dl class="event-meta">
+							<div><dt>When</dt><dd>Friday, 10:00 AM</dd></div>
+							<div><dt>Format</dt><dd>Talk + guided workshop</dd></div>
+							<div><dt>For</dt><dd>Students and career changers</dd></div>
+						</dl>
+					</div>
+				</article>
+				<TornEdge color="var(--surface)" />
 			</section>
 
 			<section id="agenda" class="agenda section-band">
 				<div class="section-intro">
-					<p class="eyebrow">The session</p>
 					<h2>Agenda</h2>
 				</div>
 				<div class="agenda-table-wrap">
@@ -171,8 +167,7 @@ const faqs = [
 
 			<section id="faq" class="faq section-block">
 				<div class="section-intro">
-					<p class="eyebrow">FAQ</p>
-					<h2>Questions, answered.</h2>
+					<h2>FAQ</h2>
 					<p>Still unsure? <a href="#contact">Reach out to the team</a> and we will help.</p>
 				</div>
 				<div class="faq-list">
@@ -183,9 +178,8 @@ const faqs = [
 			</section>
 
 			<section id="contact" class="closing">
-				<p class="eyebrow">Dev Pipeline</p>
-				<h2>Build what comes next.</h2>
-				<p>Join the community, save your seat for the next seminar, or ask us anything.</p>
+				<h2>Get in touch</h2>
+				<p>Want to reserve a seat, speak at a future seminar, or ask something the FAQ doesn't cover? Send the team a message.</p>
 				<div class="hero-actions">
 					<a class="button light" href="mailto:hello@devpipeline.example">Contact the team</a>
 					<a class="button ghost" href="#event">See upcoming event</a>
@@ -193,5 +187,6 @@ const faqs = [
 			</section>
 		</main>
 		<Footer />
+
 	</body>
 </html>

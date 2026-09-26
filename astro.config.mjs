@@ -9,6 +9,15 @@ export default defineConfig({
 	integrations: [sitemap()],
 	fonts: [
 		{
+			provider: fontProviders.google(),
+			name: 'Bricolage Grotesque',
+			cssVariable: '--font-display',
+			weights: ['500 800'],
+			styles: ['normal'],
+			subsets: ['latin'],
+			fallbacks: ['sans-serif'],
+		},
+		{
 			provider: fontProviders.local(),
 			name: 'Atkinson',
 			cssVariable: '--font-atkinson',

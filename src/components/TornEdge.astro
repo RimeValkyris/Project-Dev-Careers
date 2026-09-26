@@ -1,0 +1,28 @@
+---
+// A torn-paper edge that sits on the top or bottom of a section.
+// `color` should match the section it tears into.
+interface Props {
+	color: string;
+	position?: 'top' | 'bottom';
+}
+
+const { color, position = 'bottom' } = Astro.props;
+---
+
+<svg class:list={['torn-edge', position]} viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+	<path style={`fill: ${color}`} d="M0 40 L0 13.8 L10.7 21.6 L20.0 18.9 L34.6 7.4 L51.7 6.9 L67.5 7.7 L77.2 16.2 L100.1 9.0 L112.1 21.1 L137.1 19.9 L152.3 29.4 L161.1 26.6 L174.3 9.5 L184.4 13.4 L207.1 10.3 L225.6 21.3 L240.3 19.1 L249.4 7.4 L261.1 22.3 L276.8 13.5 L295.4 16.9 L308.8 25.1 L329.4 11.9 L347.7 18.6 L371.5 23.5 L384.6 29.5 L394.8 16.0 L416.4 9.6 L433.2 6.9 L453.2 24.3 L471.5 27.0 L485.2 22.7 L503.9 19.9 L520.1 26.2 L545.1 17.4 L565.0 7.5 L585.7 21.5 L611.6 25.7 L624.7 15.3 L644.7 6.5 L661.0 10.0 L671.1 7.4 L693.0 9.1 L705.4 15.4 L729.1 7.9 L745.2 19.2 L769.1 25.7 L792.6 12.7 L808.1 14.6 L832.0 29.0 L842.7 10.2 L854.9 11.6 L871.6 20.1 L884.4 6.1 L899.9 14.9 L918.1 28.9 L938.5 18.4 L957.7 22.2 L966.6 27.6 L988.7 27.0 L1011.0 15.4 L1026.2 8.5 L1045.6 7.5 L1054.8 11.0 L1065.8 14.2 L1074.7 6.0 L1085.4 8.4 L1100.0 6.6 L1123.7 20.7 L1134.4 12.1 L1148.6 14.7 L1158.9 26.4 L1184.7 17.2 L1200 9.7 L1200 40 Z" />
+</svg>
+
+<style>
+	.torn-edge {
+		display: block;
+		height: clamp(18px, 3vw, 36px);
+		left: 0;
+		pointer-events: none;
+		position: absolute;
+		width: 100%;
+		z-index: 2;
+	}
+	.bottom { bottom: -1px; }
+	.top { top: -1px; transform: scaleY(-1); }
+</style>
