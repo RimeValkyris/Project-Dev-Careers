@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import SpeakerPhoto1 from '../assets/TestImg1.webp';
 import SpeakerPhoto2 from '../assets/TestImg2.jpg';
 import SpeakerPhoto3 from '../assets/TestImg3.png';
+import SpeakerPhoto4 from '../assets/TestImg4.jpg';
 
 type Speaker = {
 	name: string;
@@ -19,7 +20,7 @@ type Speaker = {
 // To add a photo, import it from src/assets and set `photo`.
 const speakers: Speaker[] = [
 	{
-		name: 'Speaker Name',
+		name: 'Viktor Tsoi',
 		role: 'Senior Software Engineer',
 		organization: 'Company Name',
 		talk: 'From first commit to first offer',
@@ -27,7 +28,7 @@ const speakers: Speaker[] = [
 		photo: SpeakerPhoto1,
 	},
 	{
-		name: 'Speaker Name',
+		name: 'Sylvie Dubois',
 		role: 'Engineering Manager',
 		organization: 'Company Name',
 		talk: 'What makes a junior developer stand out',
@@ -35,12 +36,20 @@ const speakers: Speaker[] = [
 		photo: SpeakerPhoto2,
 	},
 	{
-		name: 'Speaker Name',
+		name: 'Anastasya Feodorovna Snezhnaya',
 		role: 'Community Lead',
 		organization: 'Organization Name',
 		talk: 'Building a career in public',
 		bio: 'Explains how communities, mentors, and consistent sharing open doors that applications alone do not.',
 		photo: SpeakerPhoto3,
+	},
+	{
+		name: 'Lao Shan Lung',
+		role: 'Community Lead',
+		organization: 'Organization Name',
+		talk: 'Building a career in public',
+		bio: 'Explains how communities, mentors, and consistent sharing open doors that applications alone do not.',
+		photo: SpeakerPhoto4,
 	},
 ];
 
@@ -92,10 +101,15 @@ const initials = (name: string) =>
 </section>
 
 <style>
+	.speakers {
+		margin-left: 50%;
+		transform: translateX(-50%);
+		width: min(1400px, calc(100vw - 2em));
+	}
 	.speaker-grid {
 		display: grid;
 		gap: 1rem;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(4, minmax(0, 1fr));
 		list-style: none;
 		margin: 0;
 		padding: 0;
