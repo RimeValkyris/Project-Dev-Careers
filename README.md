@@ -78,10 +78,14 @@ The download buttons (in the banner and on the seminar card) pick it up at build
    | Framework preset       | Astro           |
    | Build command          | `npm run build` |
    | Build output directory | `dist`          |
-   | Environment variable   | `NODE_VERSION` = `22` |
+
+   The Node.js version (22) comes from the `.node-version` file, so no environment variable is needed.
 
 4. The site goes live at `https://<project-name>.pages.dev`. The project name you choose in step 2 sets the address, and it can't be changed later.
-5. Put that address in [`astro.config.mjs`](astro.config.mjs) as `site: 'https://<project-name>.pages.dev'`, then commit and push. The sitemap, canonical URL and link-preview image are built from it.
+5. `site` in [`astro.config.mjs`](astro.config.mjs) is set to `https://dev-pipeline-2026.pages.dev`. If Cloudflare gives you a different address, update it, then commit and push. The sitemap, `robots.txt`, canonical URL and link-preview image are built from it.
+6. After the first deploy, check the security headers at <https://securityheaders.com>.
+
+Leave Cloudflare's **Web Analytics**, **Rocket Loader** and **Email Address Obfuscation** turned off unless you also allow them in the CSP. They inject scripts that the Content Security Policy will block.
 
 Every push to `main` redeploys the site, and other branches get their own preview link. If you add a custom domain later (under the project's **Custom domains** tab), update `site` to match.
 
@@ -120,9 +124,12 @@ src/
   consts.ts             site name, description, brochure file name
   pages/
     index.astro         the whole page and its content lists
+    404.astro           shown for unknown URLs
+    robots.txt.ts       generates robots.txt with the sitemap link
   styles/
     global.css          site-wide styles and colour variables
-astro.config.mjs        site URL, fonts, integrations
+astro.config.mjs        site URL, fonts, CSP, integrations
+.node-version           Node.js version used by Cloudflare Pages
 ```
 
 ## Credits

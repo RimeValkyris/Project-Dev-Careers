@@ -4,6 +4,13 @@ import { SITE_TITLE } from '../consts';
 // Split a trailing year (e.g. "2026") off the title so it can be styled separately.
 const [, brandName, brandYear] = SITE_TITLE.match(/^(.*?)(?:\s+(\d{4}))?$/) ?? [, SITE_TITLE, undefined];
 
+interface Props {
+	// Use on pages without the dark banner, so the bar is readable from the top.
+	solid?: boolean;
+}
+
+const { solid = false } = Astro.props;
+
 const links = [
 	{ href: '/#programs', label: 'About' },
 	{ href: '/#event', label: 'Seminar' },
@@ -14,7 +21,7 @@ const links = [
 ---
 
 <a class="skip-link" href="#main-content">Skip to content</a>
-<header class="site-header" data-header>
+<header class:list={['site-header', { 'is-solid': solid }]} data-header>
 	<nav aria-label="Primary">
 		<a class="brand" href="/">{brandName}{brandYear && <span class="brand-year"> {brandYear}</span>}</a>
 
@@ -124,6 +131,7 @@ const links = [
 		z-index: 20;
 	}
 	.site-header.is-scrolled,
+	.site-header.is-solid,
 	.site-header.menu-open {
 		--nav-fg: var(--ink);
 		--nav-muted: var(--muted);

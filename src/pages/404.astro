@@ -1,0 +1,42 @@
+---
+// Cloudflare Pages serves this for unknown URLs. Without a 404 page it would
+// fall back to the home page for every broken link.
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Page not found | ${SITE_TITLE}`} description="This page doesn't exist." />
+		<meta name="robots" content="noindex" />
+	</head>
+	<body>
+		<Header solid />
+		<main id="main-content" class="not-found">
+			<p class="not-found-code">404</p>
+			<h1>This page doesn't exist.</h1>
+			<p>The link may be old or mistyped. Everything about the seminar is on the home page.</p>
+			<div class="hero-actions">
+				<a class="button primary" href="/">Go to the home page</a>
+				<a class="button outline" href="/#agenda">See the agenda</a>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.not-found { min-height: 60vh; padding-top: 10rem; }
+	.not-found-code {
+		color: var(--bold-blue);
+		font-family: var(--font-display), sans-serif;
+		font-size: 1.1rem;
+		font-weight: 800;
+		margin: 0 0 0.5rem;
+	}
+	.not-found h1 { font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; }
+	.not-found p:not(.not-found-code) { color: var(--muted); max-width: 32rem; }
+</style>
