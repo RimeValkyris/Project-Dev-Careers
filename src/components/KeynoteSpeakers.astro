@@ -44,6 +44,17 @@ const speakers: Speaker[] = [
 	},
 ];
 
+// Only http(s) links are rendered, so a bad value can't become a javascript: URL.
+const safeLink = (url?: string) => {
+	if (!url) return undefined;
+	try {
+		const parsed = new URL(url);
+		return parsed.protocol === 'https:' || parsed.protocol === 'http:' ? parsed.href : undefined;
+	} catch {
+		return undefined;
+	}
+};
+
 const initials = (name: string) =>
 	name
 		.split(/\s+/)
@@ -70,7 +81,7 @@ const initials = (name: string) =>
 					)}
 				</div>
 				<div class="speaker-body">
-					<h3>{speaker.link ? <a href={speaker.link} target="_blank" rel="noopener">{speaker.name}</a> : speaker.name}</h3>
+					<h3>{safeLink(speaker.link) ? <a href={safeLink(speaker.link)} target="_blank" rel="noopener noreferrer">{speaker.name}</a> : speaker.name}</h3>
 					<p class="speaker-role">{speaker.role}, {speaker.organization}</p>
 					<p class="speaker-talk"><span class="talk-label">Talk</span> {speaker.talk}</p>
 					<p class="speaker-bio">{speaker.bio}</p>

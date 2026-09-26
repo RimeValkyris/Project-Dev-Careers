@@ -1,14 +1,14 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
+import BrochureButton from '../components/BrochureButton.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import KeynoteSpeakers from '../components/KeynoteSpeakers.astro';
 import TornEdge from '../components/TornEdge.astro';
-import { getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 import HeroSource from '../assets/94IMGBG.jpg';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
-const HeroImage = await getImage({ src: HeroSource, width: 2400, format: 'webp', quality: 80 });
 
 const features = [
 	{ title: 'Professional development', text: 'Access seminars and workshops that turn broad advice into a next step you can actually take.' },
@@ -28,11 +28,60 @@ const steps = [
 	{ title: 'Keep building', text: 'Leave with a 30-day plan and a community to return to.' },
 ];
 
-const agenda = [
-	{ time: '10:00', title: 'Find your starting point', text: 'Separate signal from noise and identify the work that energizes you.', format: 'Talk' },
-	{ time: '10:35', title: 'Make your work visible', text: 'Shape small projects into a portfolio that tells a credible story.', format: 'Talk' },
-	{ time: '11:10', title: 'Workshop: your next 30 days', text: 'Leave with a focused plan and time to ask practical questions.', format: 'Workshop' },
+// Program of Activities. Times are 24-hour ("13:15"); they are shown as 12-hour on the page.
+// kind: 'break' rows span the table (registration, lunch, closing); 'talk' rows are the main sessions.
+// Leave `by` empty when the person responsible is not confirmed yet.
+type ProgramItem = {
+	start: string;
+	end: string;
+	title: string;
+	details?: string;
+	by?: string;
+	kind?: 'break' | 'talk';
+	note?: string;
+};
+
+const program: ProgramItem[] = [
+	{ start: '07:30', end: '08:30', title: 'Registration', by: 'Registration Committee', kind: 'break' },
+	{ start: '08:30', end: '08:45', title: 'Preliminaries', details: 'National Anthem, TSU Hymn, & Doxology', by: 'Program Committee' },
+	{ start: '08:45', end: '09:00', title: 'Opening Remarks', details: 'Welcome address and overview of event rules', by: 'Dean Jerome Legaspi' },
+	{ start: '09:00', end: '10:00', title: 'Emerging Technologies', details: 'Trends shaping tech (Web Development, DevOps, cloud, etc.) and what students should watch out for', kind: 'talk', note: 'Talk · Q&A · Awarding' },
+	{ start: '10:00', end: '10:15', title: 'Raffle Entry and Social Media Engagement', details: 'Showcase requirements to join the raffle prizes (post pictures of the event and use the official hashtag)', by: 'Host' },
+	{ start: '10:15', end: '11:15', title: 'Employability Tips and Jobs', details: 'How to become job-ready, in-demand roles, what employers look for', kind: 'talk', note: 'Talk · Q&A · Awarding' },
+	{ start: '11:15', end: '11:30', title: 'Sponsor Segment', details: 'Acknowledgment of event co-sponsors & student councils', by: 'Sponsors' },
+	{ start: '11:30', end: '12:00', title: 'Lightning Talks', details: 'Student/Faculty/Speaker 1-minute showcases', by: 'Host/Volunteers' },
+	{ start: '12:00', end: '13:15', title: 'Lunch Break', by: 'All Participants', kind: 'break' },
+	{ start: '13:15', end: '13:30', title: 'Post-Lunch Energizer / Kahoot', details: 'Interactive game with cash prizes', by: 'Program Committee' },
+	{ start: '13:30', end: '15:00', title: 'Resume & Portfolio, and How to Market Yourself', details: 'Live resume/portfolio review, personal branding, and self-marketing tips', kind: 'talk', note: 'Talk · Q&A · Awarding' },
+	{ start: '15:00', end: '15:30', title: 'Live Mock Interview', details: 'One or two volunteers play an applicant while the speaker takes the interviewer role', by: 'Host, Volunteers, and Speaker' },
+	{ start: '15:30', end: '16:00', title: 'Keynote: Opportunities after Graduation', details: 'Showcase opportunities to speed up employability after graduation', by: 'Dr. Marlon V. Gamido', kind: 'talk' },
+	{ start: '16:00', end: '16:30', title: 'Grand Raffle', details: 'Awarding of raffle prizes', by: 'Host' },
+	{ start: '16:30', end: '16:40', title: 'Closing Remarks', details: 'Official closing remarks and formal wrap-up from the FTS Coordinator', by: 'Sir Lito Alexis M. Tolentino' },
+	{ start: '16:40', end: '17:00', title: 'Closing, Attendance and Evaluation', by: 'Registration & Evaluation Committee', kind: 'break' },
 ];
+
+const toMinutes = (time: string) => {
+	const [hours, minutes] = time.split(':').map(Number);
+	return hours * 60 + minutes;
+};
+const to12Hour = (time: string) => {
+	const [hours, minutes] = time.split(':').map(Number);
+	return `${((hours + 11) % 12) + 1}:${String(minutes).padStart(2, '0')} ${hours < 12 ? 'AM' : 'PM'}`;
+};
+const formatDuration = (minutes: number) =>
+	minutes >= 60 ? `${Math.floor(minutes / 60)} hr${minutes % 60 ? ` ${minutes % 60} min` : ''}` : `${minutes} min`;
+
+const schedule = program.map((item) => ({
+	...item,
+	startLabel: to12Hour(item.start),
+	endLabel: to12Hour(item.end),
+	duration: formatDuration(toMinutes(item.end) - toMinutes(item.start)),
+}));
+const dayStart = to12Hour(program[0].start);
+const dayEnd = to12Hour(program[program.length - 1].end);
+const programStart = to12Hour(program.find((item) => item.kind !== 'break')?.start ?? program[0].start);
+const talkCount = program.filter((item) => item.kind === 'talk').length;
+const lunch = program.find((item) => item.title === 'Lunch Break');
 
 const faqs = [
 	{ q: 'Who is Dev Pipeline 2026 for?', a: 'Anyone exploring software development, from first-time learners to working developers who want to keep growing.' },
@@ -49,18 +98,19 @@ const faqs = [
 	<body>
 		<Header />
 		<main id="main-content" class="home-main">
-			<section class="portal-hero" style={`--hero-image: url(${HeroImage.src})`}>
+			<section class="portal-hero">
+				<Image class="hero-bg" src={HeroSource} alt="" widths={[800, 1400, 2400]} sizes="100vw" format="webp" quality={80} loading="eager" fetchpriority="high" />
 				<div class="hero-copy">
 					<p class="hero-kicker">Presented by TWG Committee</p>
 					<h1>BEYOND<br /><span>THE SOARING CAPS</span></h1>
-					<p class="hero-date">Seminar 01 &nbsp;/&nbsp; Friday, 10:00 AM &nbsp;/&nbsp; Talk + guided workshop</p>
-					<p class="intro">Dev Pipeline connects curious learners, working developers, and mentors through practical seminars, honest conversations, and shared momentum.</p>
+					<p class="hero-date">Seminar 01 &nbsp;/&nbsp; Friday, {dayStart} to {dayEnd} &nbsp;/&nbsp; Full-day seminar</p>
+					<p class="intro">Dev Pipeline 2026 connects curious learners, working developers, and mentors through practical seminars, honest conversations, and shared momentum.</p>
 					<div class="hero-actions">
 						<a class="button primary" href="#agenda">See the agenda</a>
-						<a class="button ghost" href="#speakers">Keynote speakers</a>
+						<BrochureButton variant="ghost" />
 					</div>
 				</div>
-				<TornEdge color="var(--paper)" />
+				<TornEdge tone="paper" />
 			</section>
 
 			<section id="programs" class="section-block">
@@ -108,7 +158,7 @@ const faqs = [
 			</section>
 
 			<section id="event" class="event-section">
-				<TornEdge color="var(--paper)" position="top" />
+				<TornEdge tone="paper" position="top" />
 				<div class="event-copy">
 					<h2>Seminar 01: Build your path into tech</h2>
 					<p>A practical session on turning curiosity into a sustainable software development career.</p>
@@ -119,48 +169,69 @@ const faqs = [
 				</div>
 				<article class="event-card">
 					<div class="event-card-banner">
-						<span class="event-card-date"><strong>FRI</strong>10:00 AM</span>
+						<span class="event-card-date"><strong>FRI</strong>{dayStart}</span>
 						<span class="event-card-title">Seminar 01</span>
 					</div>
 					<div class="event-card-body">
 						<h3>From first commit to next opportunity</h3>
 						<dl class="event-meta">
-							<div><dt>When</dt><dd>Friday, 10:00 AM</dd></div>
-							<div><dt>Format</dt><dd>Talk + guided workshop</dd></div>
+							<div><dt>When</dt><dd>Friday, {dayStart} to {dayEnd}</dd></div>
+							<div><dt>Format</dt><dd>{talkCount} talks with Q&A</dd></div>
 							<div><dt>For</dt><dd>Students and career changers</dd></div>
 						</dl>
+						<BrochureButton variant="outline" />
 					</div>
 				</article>
-				<TornEdge color="var(--surface)" />
+				<TornEdge tone="surface" />
 			</section>
 
 			<section id="agenda" class="agenda section-band">
-				<div class="section-intro">
-					<h2>Agenda</h2>
+				<div class="agenda-intro">
+					<div>
+						<h2>Program of activities</h2>
+						<p>A full day of talks with Q&A, a live mock interview, lightning talks, and raffles, from registration at {dayStart} to closing at {dayEnd}.</p>
+					</div>
+					<dl class="agenda-facts">
+						<div><dt>Registration</dt><dd>{dayStart}</dd></div>
+						<div><dt>Program starts</dt><dd>{programStart}</dd></div>
+						{lunch && <div><dt>Lunch</dt><dd>{to12Hour(lunch.start)} to {to12Hour(lunch.end)}</dd></div>}
+						<div><dt>Talks</dt><dd>{talkCount}, with Q&A</dd></div>
+					</dl>
 				</div>
-				<div class="agenda-table-wrap">
-					<table class="agenda-table">
-						<caption class="sr-only">Seminar agenda</caption>
-						<thead>
-							<tr>
-								<th scope="col">Time</th>
-								<th scope="col">Session</th>
-								<th scope="col">Description</th>
-								<th scope="col">Format</th>
+
+				<table class="agenda-table">
+					<caption class="sr-only">Program of activities, {dayStart} to {dayEnd}</caption>
+					<thead>
+						<tr>
+							<th scope="col">Time</th>
+							<th scope="col">Activity</th>
+							<th scope="col">Details</th>
+							<th scope="col">Person / Group Responsible</th>
+						</tr>
+					</thead>
+					<tbody>
+						{schedule.map(({ startLabel, endLabel, duration, title, details, by, kind, note }) => (
+							<tr class:list={['agenda-row', kind]}>
+								<td class="agenda-time">
+									<time>{startLabel}</time>
+									<span>to {endLabel} · {duration}</span>
+								</td>
+								{kind === 'break' ? (
+									<th scope="row" colspan="2" class="agenda-activity">{title}</th>
+								) : (
+									<>
+										<th scope="row" class="agenda-activity">
+											{title}
+											{note && <span class="agenda-note">{note}</span>}
+										</th>
+										<td class="agenda-details">{details}</td>
+									</>
+								)}
+								<td class:list={['agenda-by', { tba: !by }]}>{by ?? 'To be announced'}</td>
 							</tr>
-						</thead>
-						<tbody>
-							{agenda.map(({ time, title, text, format }) => (
-								<tr>
-									<td data-label="Time"><time>{time}</time></td>
-									<th scope="row" data-label="Session">{title}</th>
-									<td data-label="Description">{text}</td>
-									<td data-label="Format"><span class:list={['format-tag', { workshop: format === 'Workshop' }]}>{format}</span></td>
-								</tr>
-							))}
-						</tbody>
-					</table>
-				</div>
+						))}
+					</tbody>
+				</table>
 			</section>
 
 			<KeynoteSpeakers />

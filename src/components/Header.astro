@@ -1,6 +1,9 @@
 ---
 import { SITE_TITLE } from '../consts';
 
+// Split a trailing year (e.g. "2026") off the title so it can be styled separately.
+const [, brandName, brandYear] = SITE_TITLE.match(/^(.*?)(?:\s+(\d{4}))?$/) ?? [, SITE_TITLE, undefined];
+
 const links = [
 	{ href: '/#programs', label: 'About' },
 	{ href: '/#event', label: 'Seminar' },
@@ -13,7 +16,7 @@ const links = [
 <a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header" data-header>
 	<nav aria-label="Primary">
-		<a class="brand" href="/">{SITE_TITLE}</a>
+		<a class="brand" href="/">{brandName}{brandYear && <span class="brand-year"> {brandYear}</span>}</a>
 
 		<ul class="nav-links" id="primary-menu" data-menu>
 			{links.map(({ href, label }) => (
@@ -150,6 +153,8 @@ const links = [
 		text-decoration: none;
 		transition: color 0.25s ease;
 	}
+
+	.brand-year { color: var(--nav-mark); transition: color 0.25s ease; }
 
 	.nav-links {
 		align-items: center;

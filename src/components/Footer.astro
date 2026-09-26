@@ -1,6 +1,9 @@
 ---
 import { SITE_TITLE } from '../consts';
 
+// Split a trailing year (e.g. "2026") off the title so it can be styled separately.
+const [, brandName, brandYear] = SITE_TITLE.match(/^(.*?)(?:\s+(\d{4}))?$/) ?? [, SITE_TITLE, undefined];
+
 const today = new Date();
 
 const links = [
@@ -16,7 +19,7 @@ const links = [
 	<div class="footer-inner">
 		<div class="footer-brand">
 			<a class="brand" href="/">
-				{SITE_TITLE}
+				{brandName}{brandYear && <span class="brand-year"> {brandYear}</span>}
 			</a>
 			<p>Practical seminars and a community for people building careers in software.</p>
 		</div>
@@ -27,7 +30,7 @@ const links = [
 		</nav>
 	</div>
 	<div class="footer-bottom">
-		<span>&copy; {today.getFullYear()} {SITE_TITLE}. Built for learning.</span>
+		<span>&copy; {today.getFullYear()} {brandName}. Built for learning.</span>
 		<a href="#main-content">Back to top <span aria-hidden="true">↑</span></a>
 	</div>
 </footer>
@@ -66,6 +69,7 @@ const links = [
 		margin: 0;
 		padding: 0;
 	}
+	.brand-year { color: var(--bold-blue); }
 	a { color: var(--muted); text-decoration: none; }
 	a:hover { color: var(--deep-blue); }
 	.footer-bottom {

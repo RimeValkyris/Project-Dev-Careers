@@ -1,0 +1,60 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import { BROCHURE_FILE, SITE_TITLE } from '../consts';
+
+interface Props {
+	// Matches the site's button styles: `light` / `outline` on light areas, `ghost` on dark ones.
+	variant?: 'primary' | 'light' | 'ghost' | 'outline';
+}
+
+const { variant = 'outline' } = Astro.props;
+
+// Checked at build time, so the button only links to a file that actually ships.
+const filePath = path.join(process.cwd(), 'public', 'downloads', BROCHURE_FILE);
+const stats = fs.existsSync(filePath) ? fs.statSync(filePath) : null;
+const href = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/downloads/${BROCHURE_FILE}`;
+
+const formatSize = (bytes: number) =>
+	bytes >= 1024 * 1024 ? `${(bytes / (1024 * 1024)).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`;
+const extension = path.extname(BROCHURE_FILE).slice(1).toUpperCase();
+---
+
+{
+	stats ? (
+		<a class:list={['button', variant, 'brochure-button']} href={href} download={BROCHURE_FILE} type="application/pdf">
+			<svg class="brochure-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+				<path d="M10 3v9m0 0-3.5-3.5M10 12l3.5-3.5M4 15.5h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+			</svg>
+			<span class="brochure-label">
+				Download e-brochure
+				<small>
+					{extension} · {formatSize(stats.size)}
+					<span class="sr-only">, {SITE_TITLE} e-brochure</span>
+				</small>
+			</span>
+		</a>
+	) : (
+		<span class:list={['button', variant, 'brochure-button', 'is-pending']} aria-disabled="true">
+			<svg class="brochure-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+				<path d="M10 3v9m0 0-3.5-3.5M10 12l3.5-3.5M4 15.5h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+			</svg>
+			<span class="brochure-label">
+				E-brochure coming soon
+			</span>
+		</span>
+	)
+}
+
+<style>
+	.brochure-button { gap: 0.6rem; text-align: left; }
+	.brochure-icon { flex-shrink: 0; height: 1.15rem; width: 1.15rem; }
+	.brochure-label { display: flex; flex-direction: column; line-height: 1.15; }
+	.brochure-label small { font-size: 0.72rem; font-weight: 700; opacity: 0.75; }
+	.is-pending { cursor: not-allowed; opacity: 0.6; }
+	.is-pending:hover,
+	.is-pending:active { transform: none; }
+	@media (max-width: 560px) {
+		.brochure-button { justify-content: center; }
+	}
+</style>
