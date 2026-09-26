@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import HeroImage from '../assets/blog-placeholder-1.jpg';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 
@@ -12,37 +13,35 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your{' '}
-				<code>astro.config.mjs</code> file. You can customize your setup with{' '}
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to{' '}
-				<a href="https://docs.astro.build/">read the docs</a>{' '}
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out{' '}
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>{' '}
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+		<main class="home-main">
+			<section class="portal-hero" style={`background-image: linear-gradient(90deg, rgba(0, 22, 56, 0.92) 0%, rgba(0, 53, 122, 0.7) 58%, rgba(0, 53, 122, 0.32) 100%), url(${HeroImage.src})`}>
+				<div class="hero-copy">
+					<p class="eyebrow">A COMMUNITY FOR BUILDERS</p>
+					<h1>Learn together.<br /><span>Build forward.</span></h1>
+					<p class="intro">Dev Pipeline connects curious learners, working developers, and mentors through practical seminars, honest conversations, and shared momentum.</p>
+					<div class="hero-actions"><a class="button primary" href="#programs">Explore the program</a><a class="text-link" href="#event">See upcoming event <span aria-hidden="true">→</span></a></div>
+				</div>
+				<div class="hero-panel"><span class="panel-mark">DP</span><p>SEMINAR 01</p><strong>From first commit<br />to next opportunity.</strong><small>Friday · 10:00 AM<br />Talk + guided workshop</small></div>
+			</section>
+
+			<section class="impact" aria-label="Dev Pipeline impact">
+				<div><strong>04</strong><span>Core pathways</span></div><div><strong>12</strong><span>Practical sessions</span></div><div><strong>30</strong><span>Day action plans</span></div><div><strong>01</strong><span>Shared community</span></div>
+			</section>
+
+			<section id="programs" class="section-block">
+				<div class="section-intro"><p class="eyebrow">WHY DEV PIPELINE</p><h2>A community built for professional growth.</h2><p>Clear guidance, useful practice, and people who understand that every career starts somewhere.</p></div>
+				<div class="feature-grid"><article><span class="feature-number">01</span><h3>Professional development</h3><p>Access seminars and workshops that turn broad advice into a next step you can actually take.</p></article><article><span class="feature-number">02</span><h3>Peer networking</h3><p>Meet learners, mentors, and builders who can share context, feedback, and opportunity.</p></article><article><span class="feature-number">03</span><h3>Practical leadership</h3><p>Practice communication, collaboration, and ownership through small projects and group work.</p></article></div>
+			</section>
+
+			<section class="pathways section-band"><div class="section-intro"><p class="eyebrow">FIND YOUR PLACE</p><h2>Choose your pathway.</h2><p>Start with the kind of support you need right now. There is room to grow into the next one.</p></div><div class="pathway-grid"><article><span class="pathway-tag">LEARNERS</span><h3>Starting out</h3><p>Build foundations, find a direction, and make your first useful projects visible.</p><a class="text-link" href="#event">Join a session →</a></article><article class="featured-pathway"><span class="pathway-tag">BUILDERS</span><h3>Moving forward</h3><p>Sharpen your craft, share your experience, and connect with the next opportunity.</p><a class="text-link" href="/blog">Read field notes →</a></article><article><span class="pathway-tag">MENTORS</span><h3>Giving back</h3><p>Help someone one step behind you with context, encouragement, and practical feedback.</p><a class="text-link" href="#contact">Get involved →</a></article></div></section>
+
+			<section class="process section-block"><div class="section-intro"><p class="eyebrow">HOW IT WORKS</p><h2>Your path to progress.</h2></div><div class="process-list"><div><span>01</span><h3>Show up</h3><p>Choose a seminar, bring your questions, and start where you are.</p></div><div><span>02</span><h3>Work through it</h3><p>Use the workshop to turn ideas into a small, concrete piece of work.</p></div><div><span>03</span><h3>Keep building</h3><p>Leave with a 30-day plan and a community to return to.</p></div></div></section>
+
+			<section id="event" class="event-section"><div><p class="eyebrow">UPCOMING SEMINAR</p><h2>Build your path into tech.</h2><p>A practical session on turning curiosity into a sustainable software development career.</p><a class="button primary" href="#agenda">View session details</a></div><div class="event-meta"><strong>FRI / 10:00 AM</strong><span>Talk + guided workshop</span><span>Students and career changers</span></div></section>
+			<section id="agenda" class="agenda"><div class="section-heading"><p class="eyebrow">THE SESSION</p><h2>Agenda</h2></div><div class="agenda-row"><span>10:00</span><div><h3>Find your starting point</h3><p>Separate signal from noise and identify the work that energizes you.</p></div></div><div class="agenda-row"><span>10:35</span><div><h3>Make your work visible</h3><p>Shape small projects into a portfolio that tells a credible story.</p></div></div><div class="agenda-row"><span>11:10</span><div><h3>Workshop: your next 30 days</h3><p>Leave with a focused plan and time to ask practical questions.</p></div></div></section>
+
+			<section class="faq section-block"><div class="section-intro"><p class="eyebrow">FAQ</p><h2>Questions, answered.</h2></div><div class="faq-list"><details><summary>Who is Dev Pipeline for?</summary><p>Anyone exploring software development, from first-time learners to working developers who want to keep growing.</p></details><details><summary>Do I need professional experience?</summary><p>No. Sessions are designed to meet you at your current level and give you a useful next step.</p></details><details><summary>What should I bring?</summary><p>Bring your questions, your current project if you have one, and a willingness to try something small.</p></details></div></section>
+			<section id="contact" class="closing"><p class="eyebrow">DEV PIPELINE</p><h2>Build what comes next.</h2><a class="button primary" href="mailto:hello@devpipeline.example">Contact the team</a></section>
 		</main>
 		<Footer />
 	</body>

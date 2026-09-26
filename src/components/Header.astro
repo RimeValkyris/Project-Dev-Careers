@@ -5,12 +5,14 @@ import HeaderLink from './HeaderLink.astro';
 
 <header>
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<h2><a class="brand" href="/"><span class="brand-mark">DP</span><span>{SITE_TITLE}</span></a></h2>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
+			<a href="/#programs">Programs</a>
+			<a href="/#event">Events</a>
+			<HeaderLink href="/blog">Notes</HeaderLink>
 		</div>
+		<a class="nav-cta" href="/#contact">Join the community <span aria-hidden="true">→</span></a>
 		<div class="social-links">
 			<a href="https://m.webtoo.ls/@astro" target="_blank">
 				<span class="sr-only">Follow Astro on Mastodon</span>
@@ -46,8 +48,16 @@ import HeaderLink from './HeaderLink.astro';
 	header {
 		margin: 0;
 		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
+		background: rgba(255, 255, 255, 0.94);
+		border: 1px solid rgba(219, 229, 240, 0.95);
+		border-radius: 999px;
+		box-shadow: 0 12px 30px rgba(11, 35, 66, 0.12);
+		left: 50%;
+		position: absolute;
+		top: 1rem;
+		transform: translateX(-50%);
+		width: min(1040px, calc(100% - 2rem));
+		z-index: 10;
 	}
 	h2 {
 		margin: 0;
@@ -58,28 +68,38 @@ import HeaderLink from './HeaderLink.astro';
 	h2 a.active {
 		text-decoration: none;
 	}
+	.brand { align-items: center; display: flex; gap: 0.6rem; }
+	.brand-mark { align-items: center; background: var(--deep-blue); border-radius: 50%; color: white; display: inline-flex; font-size: 0.65rem; height: 2rem; justify-content: center; letter-spacing: 0.02em; width: 2rem; }
 	nav {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		max-width: 1080px;
+		margin: auto;
+		min-height: 3.25rem;
+		padding: 0 0.75rem;
 	}
 	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
+		padding: 0.85em 0.7em;
+		color: var(--ink);
+		border-bottom: 2px solid transparent;
 		text-decoration: none;
 	}
 	nav a.active {
 		text-decoration: none;
 		border-bottom-color: var(--accent);
 	}
-	.social-links,
-	.social-links a {
-		display: flex;
-	}
-	@media (max-width: 720px) {
-		.social-links {
-			display: none;
-		}
+	.nav-cta { background: var(--deep-blue); border-radius: 999px; color: white; font-size: 0.85rem; font-weight: 700; padding: 0.65rem 0.95rem; }
+	.nav-cta span { color: #b8ceff; margin-left: 0.25rem; }
+	.social-links { display: none; }
+	.internal-links { display: flex; align-items: center; gap: 0.1rem; }
+	@media (max-width: 520px) {
+		header { top: 0.6rem; }
+		nav { padding: 0 0.35rem; }
+		nav h2 { font-size: 0.9rem; }
+		nav a { padding-left: 0.45rem; padding-right: 0.45rem; }
+		.internal-links a:nth-child(2), .internal-links a:nth-child(3) { display: none; }
+		.nav-cta { font-size: 0; padding: 0.65rem 0.8rem; }
+		.nav-cta span { font-size: 1rem; margin: 0; }
 	}
 </style>
