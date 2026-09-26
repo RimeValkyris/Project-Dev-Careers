@@ -238,11 +238,19 @@ a:focus-visible, button:focus-visible, summary:focus-visible { border-radius: 6p
 /* ---------- Agenda ---------- */
 .agenda { background: var(--surface); }
 .agenda .section-intro { margin-bottom: 2rem; }
-.agenda-list { display: grid; gap: 0.75rem; list-style: none; margin: 0; padding: 0; }
-.agenda-row { align-items: start; background: white; border: 1px solid var(--line); border-radius: var(--radius); display: grid; gap: 1.5rem; grid-template-columns: 6rem 1fr; padding: 1.5rem 1.75rem; }
-.agenda-row time { background: var(--surface-blue); border-radius: 999px; color: var(--deep-blue); font-size: 0.9rem; font-weight: 700; padding: 0.3rem 0; text-align: center; }
-.agenda-row h3 { font-size: 1.3rem; margin: 0; }
-.agenda-row p { color: var(--muted); font-size: 0.97rem; margin: 0.3rem 0 0; }
+.agenda-table-wrap { background: white; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 12px 30px rgba(11, 35, 66, 0.05); overflow: hidden; }
+.agenda-table { border-collapse: collapse; font-size: 0.97rem; margin: 0; width: 100%; }
+.agenda-table thead th { background: var(--surface-blue); color: var(--cobalt-blue); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; padding: 0.95rem 1.5rem; text-align: left; text-transform: uppercase; }
+.agenda-table td, .agenda-table tbody th { border-top: 1px solid var(--line); padding: 1.25rem 1.5rem; text-align: left; vertical-align: middle; }
+.agenda-table tbody tr { transition: background 0.2s ease; }
+.agenda-table tbody tr:hover { background: #f8faff; }
+.agenda-table tbody th { color: var(--ink); font-size: 1.05rem; font-weight: 700; }
+.agenda-table td:nth-child(3) { color: var(--muted); }
+.agenda-table td:first-child { white-space: nowrap; width: 1%; }
+.agenda-table td:last-child { width: 1%; }
+.agenda-table time { background: var(--surface-blue); border-radius: 999px; color: var(--deep-blue); display: inline-block; font-size: 0.9rem; font-weight: 700; padding: 0.3rem 0.85rem; }
+.format-tag { border: 1px solid var(--line); border-radius: 999px; color: var(--cobalt-blue); display: inline-block; font-size: 0.78rem; font-weight: 700; padding: 0.25rem 0.75rem; white-space: nowrap; }
+.format-tag.workshop { background: var(--bold-blue); border-color: var(--bold-blue); color: white; }
 
 /* ---------- FAQ ---------- */
 .faq { display: grid; gap: 5rem; grid-template-columns: 0.8fr 1.2fr; padding-top: 0; }
@@ -278,13 +286,18 @@ a:focus-visible, button:focus-visible, summary:focus-visible { border-radius: 6p
 	.hero-actions .button { flex: 1 1 100%; }
 	.hero-panel { padding: 1.5rem; }
 	.hero-panel strong { font-size: 1.5rem; }
-	.agenda-row { gap: 0.75rem; grid-template-columns: 1fr; padding: 1.25rem; }
-	.agenda-row time { justify-self: start; padding: 0.25rem 0.8rem; }
+	.agenda-table thead { display: none; }
+	.agenda-table, .agenda-table tbody, .agenda-table tr, .agenda-table td, .agenda-table tbody th { display: block; width: auto !important; }
+	.agenda-table tbody tr { border-top: 1px solid var(--line); display: grid; gap: 0.5rem; grid-template-columns: auto 1fr; padding: 1.25rem; }
+	.agenda-table tbody tr:first-child { border-top: 0; }
+	.agenda-table td, .agenda-table tbody th { border: 0; padding: 0; }
+	.agenda-table tbody th, .agenda-table td:nth-child(3) { grid-column: 1 / -1; }
+	.agenda-table td:last-child { grid-row: 1; grid-column: 2; justify-self: end; }
 	.card, .event-meta { padding: 1.4rem; }
 	.closing { padding: 3.5rem 1.25rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-	.button, .card, .faq-list details, .faq-list summary::after, .button span, .text-link span { transition: none; }
+	.button, .card, .faq-list details, .faq-list summary::after, .button span, .text-link span, .agenda-table tbody tr { transition: none; }
 	.button:hover, .card:hover { transform: none; }
 }
 

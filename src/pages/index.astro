@@ -28,9 +28,9 @@ const steps = [
 ];
 
 const agenda = [
-	{ time: '10:00', title: 'Find your starting point', text: 'Separate signal from noise and identify the work that energizes you.' },
-	{ time: '10:35', title: 'Make your work visible', text: 'Shape small projects into a portfolio that tells a credible story.' },
-	{ time: '11:10', title: 'Workshop: your next 30 days', text: 'Leave with a focused plan and time to ask practical questions.' },
+	{ time: '10:00', title: 'Find your starting point', text: 'Separate signal from noise and identify the work that energizes you.', format: 'Talk' },
+	{ time: '10:35', title: 'Make your work visible', text: 'Shape small projects into a portfolio that tells a credible story.', format: 'Talk' },
+	{ time: '11:10', title: 'Workshop: your next 30 days', text: 'Leave with a focused plan and time to ask practical questions.', format: 'Workshop' },
 ];
 
 const faqs = [
@@ -142,14 +142,29 @@ const faqs = [
 					<p class="eyebrow">The session</p>
 					<h2>Agenda</h2>
 				</div>
-				<ol class="agenda-list">
-					{agenda.map(({ time, title, text }) => (
-						<li class="agenda-row">
-							<time>{time}</time>
-							<div><h3>{title}</h3><p>{text}</p></div>
-						</li>
-					))}
-				</ol>
+				<div class="agenda-table-wrap">
+					<table class="agenda-table">
+						<caption class="sr-only">Seminar agenda</caption>
+						<thead>
+							<tr>
+								<th scope="col">Time</th>
+								<th scope="col">Session</th>
+								<th scope="col">Description</th>
+								<th scope="col">Format</th>
+							</tr>
+						</thead>
+						<tbody>
+							{agenda.map(({ time, title, text, format }) => (
+								<tr>
+									<td data-label="Time"><time>{time}</time></td>
+									<th scope="row" data-label="Session">{title}</th>
+									<td data-label="Description">{text}</td>
+									<td data-label="Format"><span class:list={['format-tag', { workshop: format === 'Workshop' }]}>{format}</span></td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
 			</section>
 
 			<KeynoteSpeakers />

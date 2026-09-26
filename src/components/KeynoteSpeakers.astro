@@ -1,6 +1,9 @@
 ---
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
+import SpeakerPhoto1 from '../assets/TestImg1.webp';
+import SpeakerPhoto2 from '../assets/TestImg2.jpg';
+import SpeakerPhoto3 from '../assets/TestImg3.png';
 
 type Speaker = {
 	name: string;
@@ -21,6 +24,7 @@ const speakers: Speaker[] = [
 		organization: 'Company Name',
 		talk: 'From first commit to first offer',
 		bio: 'Shares how small, visible projects turned into real interviews, and what hiring teams actually look for.',
+		photo: SpeakerPhoto1,
 	},
 	{
 		name: 'Speaker Name',
@@ -28,6 +32,7 @@ const speakers: Speaker[] = [
 		organization: 'Company Name',
 		talk: 'What makes a junior developer stand out',
 		bio: 'Walks through the habits, questions, and communication that make new developers easy to trust and grow.',
+		photo: SpeakerPhoto2,
 	},
 	{
 		name: 'Speaker Name',
@@ -35,6 +40,7 @@ const speakers: Speaker[] = [
 		organization: 'Organization Name',
 		talk: 'Building a career in public',
 		bio: 'Explains how communities, mentors, and consistent sharing open doors that applications alone do not.',
+		photo: SpeakerPhoto3,
 	},
 ];
 
@@ -59,7 +65,7 @@ const initials = (name: string) =>
 			<li class="speaker-card">
 				<div class="speaker-photo">
 					{speaker.photo ? (
-						<Image src={speaker.photo} alt={`Portrait of ${speaker.name}`} width={480} height={480} />
+						<Image src={speaker.photo} alt={`Portrait of ${speaker.name}`} width={720} format="webp" quality={80} loading="lazy" />
 					) : (
 						<span class="speaker-initials" aria-hidden="true">{initials(speaker.name)}</span>
 					)}
@@ -114,8 +120,11 @@ const initials = (name: string) =>
 		border-radius: 0;
 		height: 100%;
 		object-fit: cover;
+		object-position: center 30%;
+		transition: transform 0.4s ease;
 		width: 100%;
 	}
+	.speaker-card:hover .speaker-photo img { transform: scale(1.04); }
 	.speaker-initials {
 		align-items: center;
 		border: 1px solid rgba(255, 255, 255, 0.55);
@@ -130,11 +139,16 @@ const initials = (name: string) =>
 		width: 6rem;
 	}
 	.speaker-number {
-		color: #b8ceff;
-		font-size: 0.75rem;
+		backdrop-filter: blur(6px);
+		-webkit-backdrop-filter: blur(6px);
+		background: rgba(0, 18, 48, 0.55);
+		border-radius: 999px;
+		color: white;
+		font-size: 0.72rem;
 		font-weight: 700;
-		left: 1.25rem;
+		left: 1rem;
 		letter-spacing: 0.12em;
+		padding: 0.25rem 0.65rem;
 		position: absolute;
 		top: 1rem;
 	}
@@ -182,5 +196,7 @@ const initials = (name: string) =>
 	@media (prefers-reduced-motion: reduce) {
 		.speaker-card { transition: none; }
 		.speaker-card:hover { transform: none; }
+		.speaker-photo img { transition: none; }
+		.speaker-card:hover .speaker-photo img { transform: none; }
 	}
 </style>
