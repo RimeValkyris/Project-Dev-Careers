@@ -2,7 +2,7 @@
 // A torn-paper edge that sits on the top or bottom of a section.
 // `tone` should match the section it tears into.
 interface Props {
-	tone: 'paper' | 'surface';
+	tone: 'paper' | 'surface' | 'brand';
 	position?: 'top' | 'bottom';
 }
 
@@ -25,6 +25,7 @@ const { tone, position = 'bottom' } = Astro.props;
 	}
 	.paper { color: var(--paper); }
 	.surface { color: var(--surface); }
+	.brand { color: var(--sea-blue); }
 	.bottom { bottom: -1px; }
 	.top { top: -1px; transform: scaleY(-1); }
 </style>

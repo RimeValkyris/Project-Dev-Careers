@@ -5,8 +5,9 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	// The Cloudflare Pages address. Update this if the project name differs or a custom domain is added.
-	site: 'https://dev-pipeline-2026.pages.dev',
+	// The site's real, final address once it's hosted somewhere. The sitemap,
+	// robots.txt, canonical URL and link-preview image are all built from this.
+	site: 'https://example.com',
 	integrations: [sitemap()],
 	// No Markdown on this site; Shiki's inline styles would also conflict with the CSP below.
 	markdown: { syntaxHighlight: false },

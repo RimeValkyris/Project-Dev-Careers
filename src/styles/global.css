@@ -315,6 +315,163 @@ summary:focus-visible {
   margin: 1rem 0 0;
 }
 
+.about-band {
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 28%, rgba(31, 72, 255, 0.5), transparent),
+    radial-gradient(ellipse 70% 45% at 50% 85%, rgba(0, 37, 204, 0.45), transparent),
+    var(--weave), var(--sea-blue);
+  box-sizing: border-box;
+  color: white;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+  padding: 6rem max(1.5rem, calc(50vw - 640px)) 7.5rem;
+  position: relative;
+  text-align: center;
+}
+.about-copy {
+  margin: 0 auto;
+  max-width: 860px;
+}
+.about-kicker {
+  color: #b8ceff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  margin: 0 0 1rem;
+  text-transform: uppercase;
+}
+.about-band h2 {
+  color: white;
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0 0 1.75rem;
+  text-shadow: var(--stamp);
+}
+.about-band h2 span {
+  color: #8fb0ff;
+  display: inline-block;
+}
+.about-tagline {
+  border-bottom: 1px solid rgba(184, 206, 255, 0.35);
+  border-top: 1px solid rgba(184, 206, 255, 0.35);
+  display: inline-block;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.35;
+  margin: 0 0 2rem;
+  padding: 0.75rem 0.5rem;
+  text-transform: uppercase;
+}
+.about-body {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin: 0 auto;
+  max-width: 780px;
+}
+.about-body strong {
+  color: white;
+}
+.about-focus {
+  counter-reset: focus;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  list-style: none;
+  margin: 2.25rem 0 0;
+  padding: 0;
+}
+.about-focus li {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(184, 206, 255, 0.4);
+  border-radius: 999px;
+  counter-increment: focus;
+  display: inline-flex;
+  font-size: 0.92rem;
+  font-weight: 700;
+  gap: 0.6rem;
+  padding: 0.45rem 1.1rem 0.45rem 0.45rem;
+}
+.about-focus li::before {
+  background: white;
+  border-radius: 50%;
+  color: var(--deep-blue);
+  content: counter(focus);
+  display: grid;
+  font-size: 0.8rem;
+  height: 1.7rem;
+  place-items: center;
+  width: 1.7rem;
+}
+
+/* Scattered photo collage styled as taped polaroid prints. */
+.collage {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-areas:
+    "a b c d d"
+    "e e c f g";
+  grid-template-columns: 0.8fr 1fr 2.6fr 1fr 1fr;
+  grid-template-rows: 210px 210px;
+  margin-top: 4.5rem;
+  position: relative;
+}
+.collage-item {
+  background: #fdfdfb;
+  border-radius: 3px;
+  box-shadow:
+    0 2px 4px rgba(0, 10, 40, 0.25),
+    0 18px 30px -8px rgba(0, 10, 40, 0.55);
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.55rem 0.55rem 1.6rem;
+  position: relative;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.collage-item::before {
+  background: rgba(184, 206, 255, 0.7);
+  box-shadow: 0 1px 2px rgba(0, 10, 40, 0.2);
+  content: "";
+  height: 1.3rem;
+  left: 50%;
+  position: absolute;
+  top: -0.6rem;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 4.5rem;
+  z-index: 1;
+}
+.collage-item img {
+  border-radius: 1px;
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+.collage-item:hover {
+  box-shadow:
+    0 4px 8px rgba(0, 10, 40, 0.3),
+    0 28px 40px -10px rgba(0, 10, 40, 0.6);
+  transform: rotate(0deg) scale(1.05);
+  z-index: 3;
+}
+.slot-a { grid-area: a; height: 75%; align-self: center; transform: rotate(-3deg) translateY(20px); }
+.slot-b { grid-area: b; transform: rotate(4deg) translateY(-10px); }
+.slot-c { grid-area: c; padding: 0.8rem 0.8rem 2.4rem; transform: rotate(-1.5deg) scale(1.04); z-index: 1; }
+.slot-c::before { width: 7rem; }
+.slot-d { grid-area: d; height: 90%; transform: rotate(3deg) translateY(-8px); }
+.slot-e { grid-area: e; transform: rotate(2deg) translateX(20px); }
+.slot-f { grid-area: f; transform: rotate(-4deg) translateY(10px); }
+.slot-g { grid-area: g; height: 80%; align-self: start; transform: rotate(5deg) translateY(30px); }
+
 .card-grid {
   display: grid;
   gap: 1.25rem;
@@ -328,22 +485,6 @@ summary:focus-visible {
   flex-direction: column;
   gap: 0.75rem;
   padding: 1.75rem;
-}
-.feature-list {
-  border-top: 2px solid var(--ink);
-  display: grid;
-  gap: 2.5rem;
-  grid-template-columns: repeat(3, 1fr);
-  padding-top: 1.75rem;
-}
-.feature-list h3 {
-  font-size: 1.3rem;
-  margin: 0 0 0.6rem;
-}
-.feature-list p {
-  color: var(--muted);
-  font-size: 0.97rem;
-  margin: 0;
 }
 .card h3 {
   font-size: 1.35rem;
@@ -925,9 +1066,31 @@ summary:focus-visible {
   .agenda-row.break .agenda-by::before {
     color: #b8ceff;
   }
-  .feature-list {
-    gap: 1.75rem;
-    grid-template-columns: 1fr;
+  .about-band {
+    padding-bottom: 5.5rem;
+    padding-top: 4rem;
+  }
+  .collage {
+    gap: 1rem;
+    grid-template-areas:
+      "c c"
+      "a b"
+      "e e"
+      "d f";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 240px 170px 170px 170px;
+    margin-top: 3.5rem;
+  }
+  .collage .slot-g {
+    display: none;
+  }
+  .slot-a,
+  .slot-d,
+  .slot-g {
+    height: auto;
+  }
+  .slot-c {
+    transform: rotate(-1deg);
   }
   .section-block,
   .section-band {
@@ -960,6 +1123,7 @@ summary:focus-visible {
 }
 @media (prefers-reduced-motion: reduce) {
   .button,
+  .collage-item,
   .faq-list details,
   .faq-list summary::after,
   .button span,

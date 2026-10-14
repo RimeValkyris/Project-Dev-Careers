@@ -67,27 +67,21 @@ public/downloads/dev-pipeline-2026-e-brochure.pdf
 
 The download buttons (in the banner and on the seminar card) pick it up at build time and show its size. Until the file exists, they show **"E-brochure coming soon"** and are disabled, so visitors never hit a broken link. To use a different file name, change `BROCHURE_FILE` in [`src/consts.ts`](src/consts.ts).
 
-## Deploying to Cloudflare Pages
+## Deploying
 
-1. Push this repository to GitHub.
-2. In the Cloudflare dashboard, go to **Workers & Pages → Create → Pages → Connect to Git** and pick this repository.
-3. Use these build settings:
+The site builds to plain static files, so it can be hosted anywhere that serves a folder of HTML/CSS/JS — no server or database required. Point the host at:
 
-   | Setting                | Value           |
-   | :--------------------- | :-------------- |
-   | Framework preset       | Astro           |
-   | Build command          | `npm run build` |
-   | Build output directory | `dist`          |
+| Setting                | Value           |
+| :--------------------- | :-------------- |
+| Build command          | `npm run build` |
+| Output directory       | `dist`          |
+| Node.js version        | 22 (also set in [`.node-version`](.node-version), which most hosts read automatically) |
 
-   The Node.js version (22) comes from the `.node-version` file, so no environment variable is needed.
+After you pick a host and know the site's real address:
 
-4. The site goes live at `https://<project-name>.pages.dev`. The project name you choose in step 2 sets the address, and it can't be changed later.
-5. `site` in [`astro.config.mjs`](astro.config.mjs) is set to `https://dev-pipeline-2026.pages.dev`. If Cloudflare gives you a different address, update it, then commit and push. The sitemap, `robots.txt`, canonical URL and link-preview image are built from it.
-6. After the first deploy, check the security headers at <https://securityheaders.com>.
-
-Leave Cloudflare's **Web Analytics**, **Rocket Loader** and **Email Address Obfuscation** turned off unless you also allow them in the CSP. They inject scripts that the Content Security Policy will block.
-
-Every push to `main` redeploys the site, and other branches get their own preview link. If you add a custom domain later (under the project's **Custom domains** tab), update `site` to match.
+1. Set `site` in [`astro.config.mjs`](astro.config.mjs) to that address, then commit and push. The sitemap, `robots.txt`, canonical URL and link-preview image are all built from it.
+2. Check the security headers are actually applied at <https://securityheaders.com>. [`public/_headers`](public/_headers) is read automatically by hosts that support the Netlify-style `_headers` convention (Cloudflare Pages/Workers, Netlify). On a host that doesn't (Vercel, GitHub Pages, a plain server), the same rules need to be set another way — ask if you want that added for a specific host.
+3. If the host offers analytics snippets, "speed" script injectors, or similar add-ons, leave them off unless you also allow their domain in the CSP in `astro.config.mjs` — they inject scripts that the Content Security Policy will otherwise block.
 
 The build downloads the Bricolage Grotesque font from Google Fonts and serves it from the site itself, so the build machine needs internet access but visitors never load anything from Google.
 
@@ -129,7 +123,7 @@ src/
   styles/
     global.css          site-wide styles and colour variables
 astro.config.mjs        site URL, fonts, CSP, integrations
-.node-version           Node.js version used by Cloudflare Pages
+.node-version           Node.js version, read automatically by most hosts
 ```
 
 ## Credits

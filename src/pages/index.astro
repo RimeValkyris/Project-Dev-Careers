@@ -7,13 +7,25 @@ import KeynoteSpeakers from '../components/KeynoteSpeakers.astro';
 import TornEdge from '../components/TornEdge.astro';
 import { Image } from 'astro:assets';
 import HeroSource from '../assets/merel_bg.jpg';
+// Placeholder collage photos; swap these imports for real event photos.
+import Collage1 from '../assets/TestImg1.webp';
+import Collage2 from '../assets/TestImg2.jpg';
+import Collage3 from '../assets/TestImg3.png';
+import Collage4 from '../assets/TestImg4.jpg';
+import CollageWide from '../assets/94IMGBG.jpg';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 
-const features = [
-	{ title: 'Professional development', text: 'Access seminars and workshops that turn broad advice into a next step you can actually take.' },
-	{ title: 'Peer networking', text: 'Meet learners, mentors, and builders who can share context, feedback, and opportunity.' },
-	{ title: 'Practical leadership', text: 'Practice communication, collaboration, and ownership through small projects and group work.' },
+
+// Photo collage under "What is The Dev Pipeline?". `slot` places the photo in the collage grid (a–g, c is the large centre photo).
+const collage = [
+	{ slot: 'a', src: Collage1, alt: '' },
+	{ slot: 'b', src: HeroSource, alt: '' },
+	{ slot: 'c', src: CollageWide, alt: '' },
+	{ slot: 'd', src: Collage2, alt: '' },
+	{ slot: 'e', src: Collage3, alt: '' },
+	{ slot: 'f', src: Collage4, alt: '' },
+	{ slot: 'g', src: Collage2, alt: '' },
 ];
 
 const pathways = [
@@ -81,6 +93,7 @@ const dayStart = to12Hour(program[0].start);
 const dayEnd = to12Hour(program[program.length - 1].end);
 const programStart = to12Hour(program.find((item) => item.kind !== 'break')?.start ?? program[0].start);
 const talkCount = program.filter((item) => item.kind === 'talk').length;
+const focusAreas = program.filter((item) => item.kind === 'talk' && !item.title.startsWith('Keynote')).map((item) => item.title);
 const lunch = program.find((item) => item.title === 'Lunch Break');
 
 const faqs = [
@@ -103,29 +116,33 @@ const faqs = [
 				<div class="hero-copy">
 					<p class="hero-kicker">Presented by TWG Committee</p>
 					<h1>BEYOND<br /><span>THE SOARING CAPS</span></h1>
-					<p class="hero-date">Seminar 01 &nbsp;/&nbsp; Friday, {dayStart} to {dayEnd} &nbsp;/&nbsp; Full-day seminar</p>
 					<p class="intro">Dev Pipeline 2026 connects curious learners, working developers, and mentors through practical seminars, honest conversations, and shared momentum.</p>
 					<div class="hero-actions">
 						<a class="button primary" href="#agenda">See the agenda</a>
 						<BrochureButton variant="ghost" />
 					</div>
 				</div>
-				<TornEdge tone="paper" />
+				<TornEdge tone="brand" />
 			</section>
 
-			<section id="programs" class="section-block">
-				<div class="section-intro">
-					<h2>Why join</h2>
-					<p>Clear guidance, useful practice, and people who understand that every career starts somewhere.</p>
+			<section id="programs" class="about-band">
+				<div class="about-copy">
+					<p class="about-kicker">About the event</p>
+					<h2>What is <span>The Dev Pipeline?</span></h2>
+					<p class="about-tagline">A college-wide webinar and career-immersion event for CCS students</p>
+					<p class="about-body">"THE DEV PIPELINE 2026: Beyond the Soaring Caps," is a college-wide webinar and career-immersion event designed to give students of the <strong>College of Computer Studies (CCS)</strong> a practical, grounded look at where the technology industry is heading and what it genuinely takes to build a lasting career within it. Organized by the <strong>Field Trips and Seminars Technical Working Group</strong> consisting of 60 members, the activity brings together experienced industry practitioners to deliver talks across three focus areas.</p>
+					<ol class="about-focus">
+						{focusAreas.map((title) => <li>{title}</li>)}
+					</ol>
 				</div>
-				<div class="feature-list">
-					{features.map(({ title, text }) => (
-						<article>
-							<h3>{title}</h3>
-							<p>{text}</p>
-						</article>
+				<div class="collage">
+					{collage.map(({ slot, src, alt }) => (
+						<figure class={`collage-item slot-${slot}`}>
+							<Image src={src} alt={alt} widths={slot === 'c' ? [600, 1000, 1400] : [300, 500]} sizes={slot === 'c' ? '(max-width: 720px) 100vw, 45vw' : '(max-width: 720px) 50vw, 20vw'} format="webp" quality={75} />
+						</figure>
 					))}
 				</div>
+				<TornEdge tone="surface" />
 			</section>
 
 			<section class="pathways section-band">
@@ -160,7 +177,8 @@ const faqs = [
 			<section id="event" class="event-section">
 				<TornEdge tone="paper" position="top" />
 				<div class="event-copy">
-					<h2>Seminar 01: Build your path into tech</h2>
+					<h2>Dev Pipeline 2026: BEYOND
+THE SOARING CAPS</h2>
 					<p>A practical session on turning curiosity into a sustainable software development career.</p>
 					<div class="hero-actions">
 						<a class="button light" href="#agenda">View the agenda</a>
@@ -170,7 +188,7 @@ const faqs = [
 				<article class="event-card">
 					<div class="event-card-banner">
 						<span class="event-card-date"><strong>FRI</strong>{dayStart}</span>
-						<span class="event-card-title">Seminar 01</span>
+						<span class="event-card-title">Dev Pipeline 2026</span>
 					</div>
 					<div class="event-card-body">
 						<h3>From first commit to next opportunity</h3>
