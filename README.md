@@ -70,7 +70,7 @@ The site builds to plain static files, so it can be hosted anywhere that serves 
 After you pick a host and know the site's real address:
 
 1. Set `site` in [`astro.config.mjs`](astro.config.mjs) to that address, then commit and push. The sitemap, `robots.txt`, canonical URL and link-preview image are all built from it.
-2. Check the security headers are actually applied at <https://securityheaders.com>. [`public/_headers`](public/_headers) is read automatically by hosts that support the Netlify-style `_headers` convention (Cloudflare Pages/Workers, Netlify). On a host that doesn't (Vercel, GitHub Pages, a plain server), the same rules need to be set another way — ask if you want that added for a specific host.
+2. Check the security headers are actually applied at <https://securityheaders.com>. The current Vercel deployment uses [`vercel.json`](vercel.json); other hosts need their own header configuration.
 3. If the host offers analytics snippets, "speed" script injectors, or similar add-ons, leave them off unless you also allow their domain in the CSP in `astro.config.mjs` — they inject scripts that the Content Security Policy will otherwise block.
 
 The build downloads the Bricolage Grotesque font from Google Fonts and serves it from the site itself, so the build machine needs internet access but visitors never load anything from Google.
@@ -80,7 +80,7 @@ The build downloads the Bricolage Grotesque font from Google Fonts and serves it
 The site is static: no forms, logins, database or user input, so there is very little to attack. On top of that:
 
 - **Content Security Policy.** `security.csp` in [`astro.config.mjs`](astro.config.mjs) adds a CSP `<meta>` tag at build time. Only the site's own files and Astro's own inline scripts and styles (allowed by their SHA-256 hash) can run. Injected scripts, inline event handlers like `onerror=`, and third-party scripts are blocked by the browser.
-- **Security headers.** [`public/_headers`](public/_headers) sets `frame-ancestors 'none'` and `X-Frame-Options` (no clickjacking via iframes), `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `Cross-Origin-Opener-Policy`, `Cross-Origin-Resource-Policy` and HSTS. Cloudflare Pages and Netlify apply this file automatically.
+- **Security headers.** [`vercel.json`](vercel.json) sets `frame-ancestors 'none'` and `X-Frame-Options` (no clickjacking via iframes), `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `Cross-Origin-Opener-Policy`, `Cross-Origin-Resource-Policy` and HSTS for the Vercel deployment.
 - **Safe links.** Speaker `link` values are only rendered if they are `http(s)` URLs, and open with `rel="noopener noreferrer"`.
 
 Keep it that way when editing:
@@ -93,8 +93,7 @@ Keep it that way when editing:
 ## Project structure
 
 ```text
-public/
-  _headers              security and caching headers (Cloudflare Pages / Netlify)
+public/                  static assets
 src/
   assets/               banner and speaker images, local fonts
   components/

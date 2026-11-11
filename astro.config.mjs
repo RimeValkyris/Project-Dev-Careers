@@ -7,7 +7,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 export default defineConfig({
 	// The site's real, final address once it's hosted somewhere. The sitemap,
 	// robots.txt, canonical URL and link-preview image are all built from this.
-	site: 'https://example.com',
+	site: 'https://devpipeline2026.vercel.app',
 	integrations: [sitemap()],
 	// No Markdown on this site; Shiki's inline styles would also conflict with the CSP below.
 	markdown: { syntaxHighlight: false },

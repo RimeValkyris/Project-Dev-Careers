@@ -12,8 +12,8 @@ type Speaker = {
 const speakers: Speaker[] = [
 	{
 		name: 'John Sebastian Mangilin',
-		role: 'TODO: Confirm role',
-		organization: 'TODO: Confirm organization',
+		role: '',
+		organization: '',
 		talk: 'Emerging Technologies',
 		bio: 'A BS Information Technology graduate of Nueva Ecija University of Science and Technology (NEUST). As an IT professional and UI/UX graphic designer specializing in web systems, he has strengthened his design knowledge and skills through continued practice and project experience.',
 		photo: '/speakers/john-sebastian-mangilin.png',
@@ -75,7 +75,9 @@ const initials = (name: string) =>
 					</div>
 					<div class="speaker-body">
 						<h3>{safeLink(speaker.link) ? <a href={safeLink(speaker.link)} target="_blank" rel="noopener noreferrer">{speaker.name}</a> : speaker.name}</h3>
-						<p class="speaker-role">{speaker.role}, {speaker.organization}</p>
+						{(speaker.role || speaker.organization) && (
+							<p class="speaker-role">{[speaker.role, speaker.organization].filter(Boolean).join(', ')}</p>
+						)}
 						<p class="speaker-talk"><span class="talk-label">Talk</span> {speaker.talk}</p>
 						<p class="speaker-bio">{speaker.bio}</p>
 					</div>
