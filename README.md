@@ -1,6 +1,6 @@
 # Dev Pipeline 2026
 
-The event website for **Dev Pipeline 2026: Beyond the Soaring Caps**, presented by the TWG Committee. It's a single-page site with the seminar details, the program of activities, the keynote speakers, an FAQ, and a download for the e-brochure.
+The event website for **Dev Pipeline 2026: Beyond the Soaring Caps**, presented by the TWG Committee. It's a single-page site with the seminar details, the program of activities, the keynote speakers, and an FAQ.
 
 Built with [Astro](https://astro.build). The output is a fully static site (plain HTML, CSS and images), so it can be hosted anywhere.
 
@@ -57,16 +57,6 @@ Each item in `program` looks like this:
 
 Each speaker has a `name`, `role`, `organization`, `talk`, `bio`, and optionally a `photo` and a `link`. To add a photo, put the image in `src/assets/`, import it at the top of `KeynoteSpeakers.astro`, and set `photo` to it. Images are resized and converted to WebP automatically when the site is built. Without a photo, the card shows the speaker's initials.
 
-### E-brochure
-
-Save the PDF as:
-
-```
-public/downloads/dev-pipeline-2026-e-brochure.pdf
-```
-
-The download buttons (in the banner and on the seminar card) pick it up at build time and show its size. Until the file exists, they show **"E-brochure coming soon"** and are disabled, so visitors never hit a broken link. To use a different file name, change `BROCHURE_FILE` in [`src/consts.ts`](src/consts.ts).
-
 ## Deploying
 
 The site builds to plain static files, so it can be hosted anywhere that serves a folder of HTML/CSS/JS — no server or database required. Point the host at:
@@ -105,17 +95,15 @@ Keep it that way when editing:
 ```text
 public/
   _headers              security and caching headers (Cloudflare Pages / Netlify)
-  downloads/            e-brochure PDF goes here
 src/
   assets/               banner and speaker images, local fonts
   components/
     BaseHead.astro      <head> tags, fonts, link-preview metadata
-    BrochureButton.astro  e-brochure download button
     Footer.astro
     Header.astro        navigation bar
     KeynoteSpeakers.astro
     TornEdge.astro      torn-paper section edges
-  consts.ts             site name, description, brochure file name
+  consts.ts             site name and description
   pages/
     index.astro         the whole page and its content lists
     404.astro           shown for unknown URLs

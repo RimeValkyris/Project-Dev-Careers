@@ -1,13 +1,9 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import BrochureButton from '../components/BrochureButton.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import KeynoteSpeakers from '../components/KeynoteSpeakers.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-
-
-
 
 
 // Program of Activities. Times are 24-hour ("13:15"); they are shown as 12-hour on the page.
@@ -89,7 +85,6 @@ const faqs = [
 						<p class="intro">Dev Pipeline 2026 connects curious learners, working developers, and mentors through practical seminars, honest conversations, and shared momentum.</p>
 						<div class="hero-actions">
 							<a class="button primary" href="#agenda">See the agenda</a>
-							<BrochureButton variant="ghost" />
 						</div>
 					</div>
 
@@ -105,7 +100,6 @@ const faqs = [
 								<div><dt>Format</dt><dd>{talkCount} talks with Q&A</dd></div>
 								<div><dt>For</dt><dd>Students and career changers</dd></div>
 							</dl>
-							<BrochureButton variant="outline" />
 						</div>
 					</article>
 				</div>
