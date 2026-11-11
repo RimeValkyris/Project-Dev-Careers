@@ -5,31 +5,33 @@ type Speaker = {
 	organization: string;
 	talk: string;
 	bio: string;
+	photo?: string;
 	link?: string;
 };
 
-// Replace these placeholders with the confirmed keynote speakers.
 const speakers: Speaker[] = [
 	{
-		name: 'Viktor Tsoi',
-		role: 'Senior Software Engineer',
-		organization: 'Company Name',
-		talk: 'From first commit to first offer',
-		bio: 'Shares how small, visible projects turned into real interviews, and what hiring teams actually look for.',
+		name: 'John Sebastian Mangilin',
+		role: 'TODO: Confirm role',
+		organization: 'TODO: Confirm organization',
+		talk: 'Emerging Technologies',
+		bio: 'A BS Information Technology graduate of Nueva Ecija University of Science and Technology (NEUST). As an IT professional and UI/UX graphic designer specializing in web systems, he has strengthened his design knowledge and skills through continued practice and project experience.',
 	},
 	{
-		name: 'Sylvie Dubois',
-		role: 'Engineering Manager',
-		organization: 'Company Name',
-		talk: 'What makes a junior developer stand out',
-		bio: 'Walks through the habits, questions, and communication that make new developers easy to trust and grow.',
+		name: 'Neil Ryan V. Lumacad',
+		role: 'President',
+		organization: 'Philippines HR Group',
+		talk: 'Employability Tips and Jobs',
+		bio: 'A Certified Human Resource Professional and Certified Learning and Development Professional with more than 20 years of experience in talent management, organizational development, learning and development, and employee engagement.',
+		photo: '/speakers/neil-lumacad.png',
 	},
 	{
-		name: 'Anastasya Feodorovna Snezhnaya',
-		role: 'Community Lead',
-		organization: 'Organization Name',
-		talk: 'Building a career in public',
-		bio: 'Explains how communities, mentors, and consistent sharing open doors that applications alone do not.',
+		name: 'Tina Khoe Ang',
+		role: 'Business Leader and HR Practitioner',
+		organization: 'Rita’s Italian Ice Philippines',
+		talk: 'Resume & Portfolio, and How to Market Yourself',
+		bio: 'A business leader, HR practitioner, and advocate who helps employers and employees navigate workplace challenges. She is also a columnist for The Manila Times and an active co-moderator of major Philippine HR communities.',
+		photo: '/speakers/tina-khoe-ang.png',
 	},
 ];
 
@@ -57,14 +59,18 @@ const initials = (name: string) =>
 	<div class="section-container">
 		<div class="section-intro">
 			<h2 id="speakers-heading">Keynote speakers</h2>
-			<p>Practitioners who have made the move into tech share what worked, what didn't, and what they would do again.</p>
+			<p>HR, business, and technology practitioners share practical advice for preparing for work after graduation.</p>
 		</div>
 
 		<ul class="speaker-grid">
 			{speakers.map((speaker) => (
 				<li class="speaker-card">
 					<div class="speaker-photo">
-						<span class="speaker-initials" aria-hidden="true">{initials(speaker.name)}</span>
+						{speaker.photo ? (
+							<img src={speaker.photo} alt={`${speaker.name} portrait`} />
+						) : (
+							<span class="speaker-initials" aria-hidden="true">{initials(speaker.name)}</span>
+						)}
 					</div>
 					<div class="speaker-body">
 						<h3>{safeLink(speaker.link) ? <a href={safeLink(speaker.link)} target="_blank" rel="noopener noreferrer">{speaker.name}</a> : speaker.name}</h3>
@@ -118,6 +124,11 @@ const initials = (name: string) =>
 		justify-content: center;
 		overflow: hidden;
 		position: relative;
+	}
+	.speaker-photo img {
+		height: 100%;
+		object-fit: cover;
+		width: 100%;
 	}
 	.speaker-initials {
 		align-items: center;
@@ -178,7 +189,6 @@ const initials = (name: string) =>
 		font-size: 0.88rem;
 		line-height: 1.55;
 		margin: 0;
-		margin-top: auto;
 	}
 
 	@media (max-width: 900px) {

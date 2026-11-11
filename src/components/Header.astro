@@ -149,8 +149,8 @@ const links = [
 		--nav-fg: #f8fafc;
 		--nav-muted: #94a3b8;
 		--nav-mark: #3b82f6;
-		background: rgba(8, 15, 32, 0.94);
-		backdrop-filter: blur(12px);
+		background: var(--bg-deep);
+		backdrop-filter: none;
 		border-bottom-color: var(--line);
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 	}
@@ -221,7 +221,7 @@ const links = [
 		transition: background 0.15s, transform 0.15s;
 		white-space: nowrap;
 	}
-	.nav-cta:hover { background: var(--blue-dark); transform: translateY(-1px); }
+	.nav-cta:hover { background: var(--blue-hover); transform: translateY(-1px); }
 	.nav-cta:active { transform: translateY(1px); }
 
 	a:focus-visible,

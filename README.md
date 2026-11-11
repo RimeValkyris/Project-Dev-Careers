@@ -102,7 +102,6 @@ src/
     Footer.astro
     Header.astro        navigation bar
     KeynoteSpeakers.astro
-    TornEdge.astro      torn-paper section edges
   consts.ts             site name and description
   pages/
     index.astro         the whole page and its content lists

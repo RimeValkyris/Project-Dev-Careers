@@ -4,25 +4,23 @@
 */
 
 :root {
-  /* Grounded Academic / Tech Dark Navy Palette */
-  --bg-deep:      #060b17;
-  --bg-main:      #080f20;
-  --bg-card:      #0d172e;
-  --bg-card-hover:#122040;
-  --bg-subtle:    #0a1326;
+  --bg-deep:      #07111f;
+  --bg-main:      #0b1726;
+  --bg-card:      #102238;
+  --bg-card-hover:#172d45;
+  --bg-subtle:    #0e1d2e;
 
-  /* Confident Royal Blue Accents */
-  --blue:         #2563eb;
-  --blue-hover:   #1d4ed8;
-  --blue-light:   #3b82f6;
-  --blue-soft:    rgba(37, 99, 235, 0.1);
-  --blue-border:  #1e3258;
+  --blue:         #2f9fbd;
+  --blue-hover:   #25849f;
+  --blue-light:   #8bd3df;
+  --blue-soft:    rgba(47, 159, 189, 0.12);
+  --blue-border:  #23506a;
+  --accent-warm:  #f2b56b;
 
-  /* Typography Colors (High contrast, readable, natural) */
-  --ink:          #f8fafc;
-  --ink-light:    #cbd5e1;
-  --muted:        #94a3b8;
-  --line:         #172646;
+  --ink:          #f4f1e9;
+  --ink-light:    #d1d8da;
+  --muted:        #9eafb8;
+  --line:         #294055;
   --surface:      var(--bg-card);
   --paper:        var(--bg-main);
 
@@ -35,10 +33,10 @@
   --accent-dark:  var(--blue-hover);
   --surface-blue: var(--blue-soft);
 
-  --radius-sm: 4px;
-  --radius:    6px;
-  --radius-lg: 10px;
-  --radius-xl: 12px;
+  --radius-sm: 3px;
+  --radius:    4px;
+  --radius-lg: 7px;
+  --radius-xl: 9px;
 
   /* Natural, non-neon shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -46,15 +44,12 @@
   --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.45);
 
   /* Legacy fallbacks */
-  --weave: none;
-  --stamp: none;
-  --texture: none;
   --box-shadow: var(--shadow-md);
   --black: 6, 11, 23;
   --gray: 148, 163, 184;
   --gray-light: 23, 38, 70;
   --gray-dark: 8, 15, 32;
-  --gray-gradient: rgba(13, 23, 46, 0.95), #080f20;
+  --gray-gradient: rgba(16, 34, 56, 0.95), #0b1726;
 }
 
 *, *::before, *::after {
@@ -77,7 +72,7 @@ body {
   background: var(--bg-main);
   color: var(--ink-light);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.55;
   overflow-x: hidden;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -99,7 +94,7 @@ main {
 }
 
 .section-container {
-  width: min(1120px, calc(100% - 2.5rem));
+  width: min(1160px, calc(100% - 3rem));
   margin: 0 auto;
 }
 
@@ -314,7 +309,7 @@ summary:focus-visible {
 .event-card-body {
   display: grid;
   gap: 0.9rem;
-  padding: 1.4rem;
+  padding: 1.7rem;
 }
 .event-card-body h3 {
   font-size: 1.05rem;
@@ -794,4 +789,122 @@ summary:focus-visible {
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
   white-space: nowrap;
+}
+
+/* Editorial layout refinements */
+.portal-hero {
+  min-height: 740px;
+  padding: 8rem 0 6rem;
+  isolation: isolate;
+  background: var(--bg-deep);
+  overflow: hidden;
+}
+.portal-hero::before {
+  background:
+    linear-gradient(90deg, rgba(5, 28, 57, 0.9), rgba(20, 91, 135, 0.68)),
+    url('/hero-campus.png') center / cover;
+  content: '';
+  filter: blur(5px);
+  inset: -12px;
+  opacity: 0.82;
+  position: absolute;
+  z-index: -2;
+}
+.portal-hero::after {
+  background: rgba(5, 24, 50, 0.48);
+  content: '';
+  inset: 0;
+  position: absolute;
+  z-index: -1;
+}
+.hero-container {
+  grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
+  gap: 5rem;
+}
+.hero-copy h1 {
+  max-width: 720px;
+  font-size: clamp(3rem, 7vw, 6.4rem);
+  letter-spacing: -0.055em;
+}
+.hero-copy h1 span { color: var(--blue-light); }
+.hero-kicker { color: var(--accent-warm); }
+.hero-copy .intro { max-width: 560px; font-size: 1.1rem; }
+.hero-actions { margin-top: 2.5rem; }
+.event-card {
+  width: 100%;
+  border-radius: var(--radius);
+  box-shadow: none;
+  transform: rotate(1.5deg);
+}
+.event-card:hover { transform: rotate(1.5deg); }
+.event-card-banner { background: var(--blue); }
+.event-card-date {
+  background: var(--bg-deep);
+  border-color: rgba(255, 255, 255, 0.24);
+}
+.event-card-date strong { color: var(--accent-warm); }
+.event-card-title { color: var(--bg-deep); }
+
+.about-band {
+  background: var(--bg-subtle);
+  color: var(--ink-light);
+  padding: 5.5rem 0;
+}
+.about-copy {
+  margin: 0 auto;
+  max-width: 800px;
+  text-align: center;
+}
+.about-kicker { color: var(--blue-light); }
+.about-band h2 { color: var(--ink); max-width: none; }
+.about-band h2 span { color: var(--blue-light); }
+.about-tagline { color: var(--muted); }
+.about-body { color: var(--ink-light); margin: 0 auto; max-width: 740px; }
+.about-body strong { color: var(--ink); }
+.about-focus { justify-content: center; }
+.about-focus li {
+  background: var(--bg-card);
+  border-color: var(--line);
+  color: var(--ink);
+}
+.about-focus li:hover { background: var(--bg-card-hover); border-color: var(--blue-border); }
+.about-focus li::before { background: var(--blue); color: white; }
+
+.agenda-section { padding: 6rem 0; }
+.agenda-intro { grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr); gap: 4rem; }
+.agenda-intro h2 { max-width: 420px; }
+.agenda-table {
+  border-radius: var(--radius);
+  box-shadow: none;
+}
+.agenda-table thead th { background: var(--bg-deep); }
+.agenda-table tbody tr:hover { background: var(--bg-card-hover); }
+.agenda-row.talk { border-left-color: var(--accent-warm); background: rgba(242, 181, 107, 0.06); }
+.agenda-row.talk .agenda-time time { color: var(--accent-warm); }
+.agenda-note { color: var(--accent-warm); }
+
+.speakers-section { padding: 6rem 0; background: var(--bg-subtle); }
+.speaker-grid { gap: 1rem; }
+.speaker-card { border-radius: var(--radius); box-shadow: none; }
+.speaker-card:hover { transform: none; border-color: var(--blue-border); }
+.speaker-photo { aspect-ratio: 5 / 4; }
+.speaker-body { padding: 1.25rem; }
+.speaker-role { color: var(--blue-light); }
+
+.faq-section { padding: 6rem 0; }
+.faq { gap: 6rem; }
+
+@media (max-width: 900px) {
+  .portal-hero { min-height: auto; }
+  .hero-container { gap: 3rem; }
+  .event-card { transform: none; }
+  .event-card:hover { transform: none; }
+}
+
+@media (max-width: 560px) {
+  .section-container { width: min(100% - 2rem, 1160px); }
+  .portal-hero { padding: 7rem 0 4rem; }
+  .hero-copy h1 { font-size: clamp(2.8rem, 14vw, 4rem); }
+  .about-band, .agenda-section, .speakers-section, .faq-section { padding: 4rem 0; }
+  .agenda-intro { grid-template-columns: 1fr; gap: 2rem; }
 }
