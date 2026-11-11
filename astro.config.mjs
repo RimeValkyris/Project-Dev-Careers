@@ -14,7 +14,7 @@ export default defineConfig({
 	// Content Security Policy, added to every page as a <meta> tag at build time.
 	// Astro hashes its own inline scripts and styles into script-src / style-src,
 	// so nothing else (injected or third-party) is allowed to run.
-	// Headers a <meta> policy can't set (frame-ancestors etc.) live in public/_headers.
+	// Headers a <meta> policy can't set (frame-ancestors etc.) live in vercel.json.
 	security: {
 		csp: {
 			algorithm: 'SHA-256',

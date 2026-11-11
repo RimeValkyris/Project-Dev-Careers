@@ -71,6 +71,7 @@ After you pick a host and know the site's real address:
 
 1. Set `site` in [`astro.config.mjs`](astro.config.mjs) to that address, then commit and push. The sitemap, `robots.txt`, canonical URL and link-preview image are all built from it.
 2. Check the security headers are actually applied at <https://securityheaders.com>. The current Vercel deployment uses [`vercel.json`](vercel.json); other hosts need their own header configuration.
+3. To collect visitor and page-view data, enable Web Analytics for the Vercel project, then deploy. The Astro integration is included in [`src/components/BaseHead.astro`](src/components/BaseHead.astro).
 3. If the host offers analytics snippets, "speed" script injectors, or similar add-ons, leave them off unless you also allow their domain in the CSP in `astro.config.mjs` — they inject scripts that the Content Security Policy will otherwise block.
 
 The build downloads the Bricolage Grotesque font from Google Fonts and serves it from the site itself, so the build machine needs internet access but visitors never load anything from Google.
